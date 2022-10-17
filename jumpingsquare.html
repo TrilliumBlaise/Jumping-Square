@@ -1,0 +1,99 @@
+<! DOCTYPE html>
+<head>
+	<meta charset='utf-8'>
+	<title>Jumping Square</title>
+	<style>
+		*{
+			box-sizing: border-box;
+			margin: 0;
+			user-select: none;
+		}
+		.container{
+			display: flex;
+			justify-content: center;
+			height: 100vh;
+			width: 100vw;
+			background: #363681;
+			overflow: hidden;
+		}
+		.the-square{
+			position: absolute;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			font-size: 4rem;
+			bottom: 10%;
+			background-color: white;
+			height: 200px;
+			width: 200px;
+		}
+		span{
+			position: absolute;
+			padding: 2rem;
+			top: 10%;
+			color: white;
+			font-size: 2rem;
+			text-align: center;
+			
+		}
+		.jump{
+			animation: jump .75s linear forwards;
+		}
+		.scrunch {
+			animation: scrunch .3s ease-in-out forwards;
+		}
+		@keyframes scrunch{
+			0% {height: 175px;}
+			100% {height: 150px;}
+		}
+		@keyframes jump{
+			0% {bottom: 10%; height: 175px;}
+			25% {height: 200px;bottom: 30%; transform: rotate(90deg)}
+			60% {transform: rotate(180deg)}
+			90% {transform: rotate(270deg)}
+			100% {bottom: 10%; transform: rotate(360deg)}
+		}
+	</style>
+</head>
+<body>
+	<div class='container'>
+		<span>Press and hold the Space Bar or the screen to prep the jump.<br/>Release to jump.</span>
+		<div class='the-square'>A</div>
+	</div>
+	<script>
+		let jumping = false
+		const square = document.querySelector('.the-square')
+		document.addEventListener('keydown', e => {
+			if (e.key !== ' ') return
+			if (jumping === true) return
+			jumping = true;
+			square.classList.add('scrunch')
+		})
+		document.addEventListener('keyup', e => {
+			if (e.key !== ' ') return
+			if (jumping === false) return
+			square.classList.remove('scrunch')
+			square.classList.add('jump')
+			setTimeout(() => {
+				square.classList.remove('jump')
+				jumping = false
+			}, 1050)
+
+		})
+		document.addEventListener('touchstart', e => {
+			if (jumping === true) return
+			jumping = true;
+			square.classList.add('scrunch')
+		})
+		document.addEventListener('touchend', e => {
+			if (jumping === false) return
+			square.classList.remove('scrunch')
+			square.classList.add('jump')
+			setTimeout(() => {
+				square.classList.remove('jump')
+				jumping = false
+			}, 1050)
+
+		})
+	</script>
+</body>
