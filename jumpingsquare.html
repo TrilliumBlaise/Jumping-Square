@@ -87,6 +87,7 @@
 			square.classList.add('scrunch')
 		})
 		document.addEventListener('touchend', e => {
+			e.preventDefault()
 			if (jumping === false) return
 			square.classList.remove('scrunch')
 			square.classList.add('jump')
