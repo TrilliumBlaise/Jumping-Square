@@ -81,6 +81,7 @@
 
 		})
 		document.addEventListener('touchstart', e => {
+			e.preventDefault()
 			if (jumping === true) return
 			jumping = true;
 			square.classList.add('scrunch')
